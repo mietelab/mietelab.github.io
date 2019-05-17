@@ -6,22 +6,8 @@
 	<title>MIET E-Lab Portal</title>
         <link rel="icon" href="logo.gif" type="image/png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="" />
-	<meta name="keywords" content="" />
-	<meta name="author" content="" />
-
-  <!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
-
-	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
+	
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400" rel="stylesheet">
 	
 	<!-- Animate.css -->
@@ -59,10 +45,10 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-2">
-                                                    <div id="colorlib-logo"><a href="index.html"><img src="logo.gif" style="width:50%; height:50%;" alt="MIET Meerut Logo"></a></div>
+                                                    <div id="colorlib-logo"><a href="index.html"><img src="logo.gif" style="width:4em; height:3em;" alt="MIET Meerut Logo"></a></div>
 						</div>
 						<div class="col-md-10 text-right menu-1">
-							<ul>
+                                                    <ul>
 								<li class="active"><a href="index.html">Home</a></li>
 								<li class="has-dropdown">
 									<a href="labs.html">Labs</a>
@@ -73,7 +59,7 @@
                                                                                 <li><a href="#">Y Lab</a></li>
 									</ul>
 								</li>
-								<li><a href="services.html">Services</a></li>
+								<li><a href="login.html">Login / Sign Up</a></li>
 								<li><a href="about.html">About</a></li>
 								<li><a href="http://www.miet.ac.in/">College</a></li>
 								<li><a href="contact.html">Contact</a></li>
@@ -86,15 +72,14 @@
 
 		<section id="home" class="video-hero" style="height: 700px; background-image: url(images/cover_img_1.jpg);  background-size:cover; background-position: center center;background-attachment:fixed;" data-section="home">
 		<div class="overlay"></div>
-			<a class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=vqqt5p0q-eU',containment:'#home', showControls:false, autoPlay:true, loop:true, mute:true, startAt:0, opacity:1, quality:'default'}"></a> 
 			<div class="display-t text-center">
 				<div class="display-tc">
 					<div class="container">
 						<div class="col-md-12 col-md-offset-0">
 							<div class="animate-box">
-								<h2>Take on your biggest projects and goals</h2>
-								<p>with MIET E-Lab Portal</p>
-								<p><a href="get_started.html" class="btn btn-primary btn-lg btn-custom">Get started</a></p>
+								<h2>Meerut Institute of Engineering & Technology</h2>
+								<p>presents</p>
+								<p><a id="getStartedBtn" href="#" class="btn btn-primary btn-lg btn-custom">MIET E-Labs</a></p>
 							</div>
 						</div>
 					</div>
@@ -255,38 +240,17 @@
 
 		
 		<footer id="colorlib-footer">
-			<div class="container">
-				<div class="row row-pb-md">
-					<div class="col-md-5 colorlib-widget">
-						<h4>About MIET E-Lab</h4>
-						<p>An initiative of MIET College, Meerut for digital practical learning.</p>
-						
-					</div>
-					<div class="col-md-6 text-right colorlib-widget">
-						<h4>Contact Info</h4>
-						<ul class="colorlib-footer-links">
-							<li>MIET College, <br> Baghpat Bypass Meerut</li>
-							<li><a href="#"><i class="icon-phone"></i> +91 7017925280</a></li>
-							<li><a href="mailto:contact@miet.ac.in"><i class="icon-envelope"></i> contact@miet.ac.in</a></li>
-							<li><a href="http://www.miet.ac.in/"><i class="icon-location4"></i> miet.ac.in</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="copy">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12 text-center">
 							<p>
-								 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br> 
-								Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a>, <a href="http://pexels.com/" target="_blank">Pexels</a>
+                                                            Copyright &copy; EDGE
+                                                            <script> document.write(new Date().getFullYear());</script> All rights reserved<br>
+                                                        <p style="font-size: 0.5em;">This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
 							</p>
 						</div>
 					</div>
 				</div>
-			</div>
 		</footer>
 	</div>
 
@@ -315,7 +279,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="js/jquery.countTo.js"></script>
 	<!-- Main -->
 	<script src="js/main.js"></script>
-
+        <script>
+            $('#getStartedBtn').on('click',function()
+            {
+               $('#getStartedModal').modal(); 
+            });
+        </script>
 	</body>
 </html>
 
