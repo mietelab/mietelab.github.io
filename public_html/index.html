@@ -227,7 +227,7 @@
 								</div>
 								<div class="col-one-third">
 									<div class="form-group">
-										<button type="submit" class="btn btn-primary">Validate</button>
+                                                                            <button type="reset" onclick="validate();" class="btn btn-primary">Validate</button>
 									</div>
 								</div>
 							</form>
@@ -247,7 +247,6 @@
                                                             Copyright &copy; EDGE
                                                             <script> document.write(new Date().getFullYear());</script> All rights reserved<br>
                                                         <p style="font-size: 0.5em;">This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-							</p>
 						</div>
 					</div>
 				</div>
@@ -280,10 +279,17 @@
 	<!-- Main -->
 	<script src="js/main.js"></script>
         <script>
-            $('#getStartedBtn').on('click',function()
+            function validate()
             {
-               $('#getStartedModal').modal(); 
-            });
+                if($('#email').val().toString().endsWith("@miet.ac.in"))
+                {
+                    alert("Eligible");
+                }
+                else
+                {
+                    alert("Trespasser");
+                }
+            }
         </script>
 	</body>
 </html>
