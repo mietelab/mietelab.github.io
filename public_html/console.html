@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>MIET E-Lab Portal</title>
+        <link rel="icon" href="logo.gif" type="image/png">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body style="background-color: black;">
+              <nav class="navbar navbar-inverse" style="border-bottom: gray solid 2px;">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="console.html">Programming Console</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li style="margin-right: 50px;">
+                                <a href="#" onclick="test()"><strong>Compile & Run</strong></a>
+                            </li>
+                            <li style="margin: 12px;">
+                                <select id="language" onchange="changeMode()" style="margin-top: auto; margin-bottom: auto;">
+                                    <option value="java">Java</option>
+                                    <option value="c">C</option>
+                                    <option value="c99">C-99</option>
+                                    <option value="cpp">C++</option>
+                                    <option value="cpp14">C++ 14</option>
+                                    <option value="php">PHP</option>
+                                    <option value="perl">Perl</option>
+                                    <option value="python2">Python 2</option>
+                                    <option value="python3">Python 3</option>
+                                    <option value="ruby">Ruby</option>
+                                    <option value="go">GoLang</option>
+                                    <option value="scala">Scala</option>
+                                    <option value="bash">Bash</option>
+                                    <option value="sql">SQL</option>
+                                    <option value="pascal">Pascal</option>
+                                    <option value="csharp">C#</option>
+                                    <option value="vbn">VB.Net</option>
+                                    <option value="haskell">Haskell</option>
+                                    <option value="objc">Objective C</option>
+                                    <option value="swift">Swift</option>
+                                    <option value="groovy">Groovy</option>
+                                    <option value="fortran">FORTRAN</option>
+                                    <option value="brainfuck">Brainfuck</option>
+                                    <option value="lua">Lua</option>
+                                    <option value="tcl">TCL</option>
+                                    <option value="hack">Hack</option>
+                                    <option value="rust">Rust</option>
+                                    <option value="d">D</option>
+                                    <option value="ada">Ada</option>
+                                    <option value="r">R</option>
+                                    <option value="freebasic">Free Basic</option>
+                                    <option value="verilog">Verilog</option>
+                                    <option value="cobol">COBOL</option>
+                                    <option value="dart">Dart</option>
+                                    <option value="yabasic">YaBasic</option>
+                                    <option value="clojure">Clojure</option>
+                                    <option value="nodejs">NodeJS</option>
+                                    <option value="scheme">Scheme</option>
+                                    <option value="forth">Forth</option>
+                                    <option value="prolog">Prolog</option>
+                                    <option value="octave">Octave</option>
+                                    <option value="coffeescript">CoffeeScript</option>
+                                    <option value="icon">Icon</option>
+                                    <option value="fsharp">F#</option>
+                                    <option value="nasm">NASM</option>
+                                    <option value="gccasm">GCC</option>
+                                    <option value="intercal">Intercal</option>
+                                    <option value="nemerle">Nemerle</option>
+                                    <option value="ocaml">Ocaml</option>
+                                    <option value="unlambda">Unlambda</option>
+                                    <option value="picolisp">Picolisp</option>
+                                    <option value="spidermonkey">SpiderMonkey</option>
+                                    <option value="rhino">Rhino JS</option>
+                                    <option value="bc">BC</option>
+                                    <option value="clisp">CLISP</option>
+                                    <option value="elixir">Elixir</option>
+                                    <option value="factor">Factor</option>
+                                    <option value="falcon">Falcon</option>
+                                    <option value="fantom">Fantom</option>
+                                    <option value="nim">Nim</option>
+                                    <option value="pike">Pike</option>
+                                    <option value="smalltalk">SmallTalk</option>
+                                    <option value="mozart">OZ Mozart</option>
+                                    <option value="lolcode">LOLCODE</option>
+                                    <option value="racket">Racket</option>
+                                    <option value="kotlin">Kotlin</option>
+                                    <option value="whitespace">Whitespace</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+              </nav>
+        <div id="editor" style="position: absolute; top:58px; right: 0;bottom: 0;left: 0;"></div>
+        <div class="modal">
+            <div class="modal-body">
+                <i class="fa fa-spinner" aria-hidden="true"></i>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.4/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script>
+            var editor;
+            $(document).ready(function()
+            {
+               init(); 
+            });
+            function init()
+            {
+                editor = ace.edit("editor");
+                editor.setTheme("ace/theme/monokai");
+                editor.session.setMode("ace/mode/java");
+            }
+            function test() {
+                const url = "https://api.jdoodle.com/v1/execute/";
+                const proxy = "https://cors-anywhere.herokuapp.com/";
+                var lang = $('#language').val();
+                var src = editor.getValue();
+                var dataJ = {
+                    "clientId": "86e3b4da0ce141c7c043d1dbb1e3b059",
+                    "clientSecret": "74a51f4f738cd2d737d5d992b8d29233677617a6b732e10d4f8d781fbd72893",
+                    "language": lang,
+                    "script": src,
+                    "versionIndex": "0"
+                };
+                $.ajax({
+                    type: "POST",
+                    url: proxy + url,
+                    data: JSON.stringify(dataJ),
+                    headers:{"Content-Type":"application/json"},
+                    success: function(e) {
+                        alert(e.output);
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            }
+            function changeMode()
+            {
+                let lang = $('#language').val();
+                if(lang==="c" || lang==="cpp" || lang==="cpp14" || lang==="c99")
+                {
+                    editor.session.setMode("ace/mode/c_cpp");
+                }
+                else
+                {
+                    editor.session.setMode("ace/mode/"+lang);
+                }
+            }
+        </script>
+    </body>
+</html>
