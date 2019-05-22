@@ -169,7 +169,11 @@
             function changeMode()
             {
                 let lang = $('#language').val();
-                if(lang==="c" || lang==="cpp" || lang==="cpp14" || lang==="c99")
+                if(lang==="python2" || lang==="python3")
+                {
+                    editor.session.setMode("ace/mode/python");
+                }
+                else if(lang==="c" || lang==="cpp" || lang==="cpp14" || lang==="c99")
                 {
                     editor.session.setMode("ace/mode/c_cpp");
                 }
