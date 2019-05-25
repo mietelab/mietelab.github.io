@@ -37,7 +37,7 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
                             <li style="margin-right: 50px;">
-                                <a href="#" onclick="test()"><strong>Compile & Run</strong></a>
+                                <a href="#" onclick="beforeSend(4,1)"><strong>Compile & Run</strong></a>
                             </li>
                             <li style="margin: 12px;">
                                 <select id="language" onchange="changeMode()" style="margin-top: auto; margin-bottom: auto;">
@@ -125,9 +125,42 @@
                 </div>
             </div>
         </div>
+        
+        <div class="modal fade in" id="result" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <label>Output</label>
+                        <hr>
+                        <pre id="stdOut"></pre>
+                        <a href="#" onclick="evaluateFurther()">Evaluate Further</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.4/ace.js" type="text/javascript" charset="utf-8"></script>
         <script>
             var editor;
+            const url = "https://api.jdoodle.com/v1/execute/";
+            const proxy = "https://cors-anywhere.herokuapp.com/";
+            var hiddenInfo = {
+                testCases:[
+                    {
+                        input:"1",
+                        output:"1\n"
+                    },
+                    {
+                        input:"2",
+                        output:"1\n2\n"
+                    },
+                    {
+                        input:"0",
+                        output:"\n"
+                    }
+                ]
+            };
+            var dataJ = {};
             $(document).ready(function()
             {
                init(); 
@@ -138,31 +171,48 @@
                 editor.setTheme("ace/theme/monokai");
                 editor.session.setMode("ace/mode/java");
             }
-            function test() {
+            function beforeSend(input,u) {
                 $('#wait').modal('toggle');
-                const url = "https://api.jdoodle.com/v1/execute/";
-                const proxy = "https://cors-anywhere.herokuapp.com/";
                 var lang = $('#language').val();
                 var src = editor.getValue();
-                var dataJ = {
+                dataJ = {
                     "clientId": "86e3b4da0ce141c7c043d1dbb1e3b059",
                     "clientSecret": "74a51f4f738cd2d737d5d992b8d29233677617a6b732e10d4f8d781fbd72893",
                     "language": lang,
                     "script": src,
-                    "versionIndex": "0"
+                    "versionIndex": "0",
+                    "stdin":input
                 };
+                send(function(data)
+                {
+                    if(u===1)
+                    {
+                        usage(data);
+                    }
+                    else
+                    {
+                        u(data);
+                    }
+                });
+            }
+            function usage(d)
+            {
+                $('#stdOut').html(d);
+                $('#wait').modal('toggle');
+                $('#result').modal('toggle');
+            }
+            function send(callback)
+            {
                 $.ajax({
                     type: "POST",
-                    url: proxy + url,
+                    url: proxy+url,
                     data: JSON.stringify(dataJ),
                     headers:{"Content-Type":"application/json"},
-                    success: function(e) {
-                        $('#wait').modal('toggle');
-                        alert(e.output);
+                    success: function(exec) {
+                        callback(exec.output);
                     },
-                    error: function(e) {
-                        $('#wait').modal('toggle');
-                        console.log(e);
+                    error: function(err) {
+                        callback(err.message);
                     }
                 });
             }
@@ -181,6 +231,28 @@
                 {
                     editor.session.setMode("ace/mode/"+lang);
                 }
+            }
+            function evaluateFurther()
+            {
+                $('#result').modal('toggle');
+                $('#wait').modal('toggle');
+                for(var i=0;i<hiddenInfo.testCases.length;i++)
+                {
+                    var input = hiddenInfo.testCases[i].input;
+                    var ans = hiddenInfo.testCases[i].output;
+                    beforeSend(input,function(d)
+                    {
+                        if(ans===d.output)
+                        {
+                            console.log("Y");
+                        }
+                        else
+                        {
+                            console.log("N");
+                        }
+                    });
+                }
+                $('#wait').modal('toggle');
             }
         </script>
     </body>
