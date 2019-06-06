@@ -118,39 +118,66 @@
               </nav>
         <div id="editor" style="position: absolute; z-index: -1000; top:58px; right: 0;bottom: 0;left: 0;"></div>
         
-        <div class="modal fade in" id="wait" role="dialog">
+        <div class="modal fade in" id="report" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-title">
+                            <label>Final Report</label>
+                        </div>
                     <div class="modal-body">
-                        <label>Working on it...&nbsp;</label><i class="fa fa-cog fa-spin fa-2x" aria-hidden="true" style="float:right;"></i>
+                        <p>You've scored <strong id='scorePer'></strong>. Your solution has been submitted successfully!</p>
+                        <hr>
+                        <span id='starArea' style='align-content: center;'>
+                            
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
         
+        <div class="modal fade in" id="wait" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class='modal-header'>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class='modal-title'>
+                            <label>Working on it...&nbsp;</label><i class="fa fa-cog fa-spin fa-2x" aria-hidden="true" style="float:right;"></i>
+                        </div>
+                </div>
+            </div>
+        </div>
+        </div>
         <div class="modal fade in" id="result" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-title">
+                            <label>Output</label>
+                        </div>
                     <div class="modal-body">
-                        <label>Output</label>
-                        <hr>
                         <pre id="stdOut"></pre>
-                        <a href="javascript:void(0)" id="evaluate">Evaluate Further</a>
+                        <a href="javascript:void(0);" id="evaluate">Submit</a>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
         <script>
             $('#compile').on('click',function()
             {
-               plag_check();
+                $('#wait').modal('show');
+                plag_check();
             });
             
             $('#evaluate').on('click',function()
             {
-                $('#result').modal('toggle');
-                $('#wait').modal('toggle');
-                evaluateFurther(0);
+                $('#result').modal('hide');
+                $('#wait').modal('show');
+                evaluateFurther();
             });
 
             var editor, firebase,dataJ;
@@ -166,11 +193,11 @@
                     },
                     {
                         input:"2",
-                        output:"0\n1\n2\n"
+                        output:"0\n1\n"
                     },
                     {
                         input:"0",
-                        output:"\n"
+                        output:""
                     }
                 ]
             };
@@ -196,7 +223,6 @@
             }
             function plag_check()
             {
-                $('#wait').modal('toggle');
                 var src = editor.getValue();
                 $.ajax({
                    url: plag_url,
@@ -204,9 +230,8 @@
                    data:{key:"9bbe739a32b7df280930c8243a6ff707",data:src},
                    success: function(e)
                    {
-                       $('#wait').modal('toggle');
                        e = JSON.parse(e);
-                       if(e.plagPercent>49)
+                       if(e.plagPercent>=70)
                        {
                            alert("You seem to be have copied the source code from "+e.sources[0].link+". Contact adminstrator for more information.");
                        }
@@ -217,7 +242,7 @@
                    },
                    error: function(er)
                    {
-                       $('#wait').modal('toggle');
+                       $('#wait').modal('hide');
                        console.log(er);
                        alert('Having trouble while performing plagiarism check!');
                    }
@@ -226,8 +251,8 @@
             function usage(d)
             {
                 $('#stdOut').html(d);
-                $('#wait').modal('toggle');
-                $('#result').modal('toggle');
+                $('#wait').modal('hide');
+                $('#result').modal('show');
             }
             function send(callback)
             {
@@ -245,7 +270,6 @@
                 });
             }
             function beforeSend(input,callback1,callback2) {
-                $('#wait').modal('toggle');
                 var lang = $('#language').val();
                 var src = editor.getValue();
                 dataJ = {
@@ -277,27 +301,57 @@
                     editor.session.setMode("ace/mode/"+lang);
                 }
             }
-            function evaluateFurther(i)
+            var x;
+            var points;
+            function comp(out)
             {
-                while(i<hiddenData.testCases.length)
+                let ans = hiddenData.testCases[x].output;
+                if(ans===out)
+                    points++;
+                x++;
+            }
+            function evaluateFurther()
+            {
+                x = 0;
+                points = 0;
+                for (var i=0;i<hiddenData.testCases.length;i++)
                 {
-                    beforeSend(hiddenData.testCases[i].input,send,function(data)
-                    {
-                        var ans = hiddenData.testCases[i].output;
-                        console.log("actual: "+ans);
-                        console.log("came: "+data);
-                        if(ans===data)
-                        {
-                            console.log("corr");
-                        }
-                        else
-                        {
-                            console.log("no");
-                        }
-                    });
-                    evaluateFurther(i++);
+                    beforeSend(hiddenData.testCases[i].input,send,comp);
                 }
-                $('#wait').modal('toggle');
+                setTimeout(report, 2000);
+            }
+            function report()
+            {
+                $('#wait').hide();
+                $('#result').hide();
+                let score = Math.round(parseInt(points)/parseInt(hiddenData.testCases.length)*100);
+                let starCount = 0;
+                if(score>0 && score<=20)
+                {
+                    starCount = 1;
+                }
+                if(score>21 && score<=40)
+                {
+                    starCount = 2;
+                }
+                if(score>41 && score<=60)
+                {
+                    starCount = 3;
+                }
+                if(score>61 && score<=80)
+                {
+                    starCount = 4;
+                }
+                if(score>81 && score<=100)
+                {
+                    starCount = 5;
+                }
+                for(var i=0;i<starCount;i++)
+                {
+                    $('#starArea').append('<i class="fa fa-star" aria-hidden="true"></i>');
+                }
+                $('#scorePer').html(score+"%");
+                $('#report').modal('show');
             }
         </script>
     </body>
