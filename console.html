@@ -1,0 +1,475 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>MIET E-Lab Portal</title>
+        <link rel="icon" href="logo.gif" type="image/png">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
+	    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400" rel="stylesheet">
+	    <link rel="stylesheet" href="css/animate.css">
+	    <link rel="stylesheet" href="css/icomoon.css">
+        <script src="js/jquery.min.js"></script>
+	    <link rel="stylesheet" href="css/bootstrap.css">
+        <script src="js/bootstrap.min.js"></script>
+	    <link rel="stylesheet" href="css/magnific-popup.css">
+	    <link rel="stylesheet" href="css/owl.carousel.min.css">
+	    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+	    <link rel="stylesheet" href="css/style.css">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	    <script src="js/modernizr-2.6.2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.4/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase.js"></script>
+        <style>
+            #navb{
+                z-index: 100;
+                position: fixed;
+                top: 0px;
+                min-height: 5vh;
+                min-width: 100vw;
+                display: block;
+            }
+            #question{
+                background-color: white;
+                overflow: scroll;
+                margin-top: 12vh;
+                min-width: 100vw;
+                min-height: 100vh;
+                max-width: 100vw;
+                max-height: 100vh;
+            }
+            #editor{
+                position: relative;
+                overflow: scroll;
+                margin-top: 2vh;
+                z-index: 0;
+                min-height: 91.5vh;
+                max-height: 91.5vh;
+                min-width: 100vw;
+                max-width: 100vw;
+            }
+        </style>
+	</head>
+	<body style="background-color: white;">
+              <nav id="navb" class="navbar navbar-inverse" style="border-bottom: gray solid 2px;">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="console.html">Programming Console</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="javascript:void(0);"><strong id="user">User E-Mail</strong></a>
+                            </li>
+                            <li style="margin-right: 50px;">
+                                <a href="javascript:void(0)" id="compile">Compile & Run</a>
+                            </li>
+                            <li style="margin: 12px;">
+                                <select id="language" onchange="changeMode()" style="margin-top: auto; margin-bottom: auto;">
+                                    <option value="java">Java</option>
+                                    <option value="c">C</option>
+                                    <option value="c99">C-99</option>
+                                    <option value="cpp">C++</option>
+                                    <option value="cpp14">C++ 14</option>
+                                    <option value="php">PHP</option>
+                                    <option value="perl">Perl</option>
+                                    <option value="python2">Python 2</option>
+                                    <option value="python3">Python 3</option>
+                                    <option value="ruby">Ruby</option>
+                                    <option value="go">GoLang</option>
+                                    <option value="scala">Scala</option>
+                                    <option value="bash">Bash</option>
+                                    <option value="sql">SQL</option>
+                                    <option value="pascal">Pascal</option>
+                                    <option value="csharp">C#</option>
+                                    <option value="vbn">VB.Net</option>
+                                    <option value="haskell">Haskell</option>
+                                    <option value="objc">Objective C</option>
+                                    <option value="swift">Swift</option>
+                                    <option value="groovy">Groovy</option>
+                                    <option value="fortran">FORTRAN</option>
+                                    <option value="brainfuck">Brainfuck</option>
+                                    <option value="lua">Lua</option>
+                                    <option value="tcl">TCL</option>
+                                    <option value="hack">Hack</option>
+                                    <option value="rust">Rust</option>
+                                    <option value="d">D</option>
+                                    <option value="ada">Ada</option>
+                                    <option value="r">R</option>
+                                    <option value="freebasic">Free Basic</option>
+                                    <option value="verilog">Verilog</option>
+                                    <option value="cobol">COBOL</option>
+                                    <option value="dart">Dart</option>
+                                    <option value="yabasic">YaBasic</option>
+                                    <option value="clojure">Clojure</option>
+                                    <option value="nodejs">NodeJS</option>
+                                    <option value="scheme">Scheme</option>
+                                    <option value="forth">Forth</option>
+                                    <option value="prolog">Prolog</option>
+                                    <option value="octave">Octave</option>
+                                    <option value="coffeescript">CoffeeScript</option>
+                                    <option value="icon">Icon</option>
+                                    <option value="fsharp">F#</option>
+                                    <option value="nasm">NASM</option>
+                                    <option value="gccasm">GCC</option>
+                                    <option value="intercal">Intercal</option>
+                                    <option value="nemerle">Nemerle</option>
+                                    <option value="ocaml">Ocaml</option>
+                                    <option value="unlambda">Unlambda</option>
+                                    <option value="picolisp">Picolisp</option>
+                                    <option value="spidermonkey">SpiderMonkey</option>
+                                    <option value="rhino">Rhino JS</option>
+                                    <option value="bc">BC</option>
+                                    <option value="clisp">CLISP</option>
+                                    <option value="elixir">Elixir</option>
+                                    <option value="factor">Factor</option>
+                                    <option value="falcon">Falcon</option>
+                                    <option value="fantom">Fantom</option>
+                                    <option value="nim">Nim</option>
+                                    <option value="pike">Pike</option>
+                                    <option value="smalltalk">SmallTalk</option>
+                                    <option value="mozart">OZ Mozart</option>
+                                    <option value="lolcode">LOLCODE</option>
+                                    <option value="racket">Racket</option>
+                                    <option value="kotlin">Kotlin</option>
+                                    <option value="whitespace">Whitespace</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+              </nav>
+              
+        <div class="container" id="question">
+            <span>
+                <span id="ques-marks" class="badge badge-primary" style="float:right;"></span>
+            </span>
+            <span>
+                <strong>Problem Code:&nbsp;</strong>
+                <p id="ques-code"></p>
+            </span>
+            <hr>
+            <div>
+                <strong>Problem Description:&nbsp;</strong>
+                <p id="ques-desc"></p>
+            </div>
+            <hr>
+            <div>
+                <strong>Input Rules:&nbsp;</strong>
+                <p id="ques-inp"></p>
+            </div>
+            <hr>
+            <div>
+                <strong>Output Rules:&nbsp;</strong>
+                <p id="ques-out"></p>
+            </div>
+        </div>
+        <div id="editor"></div>
+        
+        <div class="modal fade in" id="report" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title">
+                            <label>Final Report</label>
+                        </div>
+                    <div class="modal-body">
+                        <p>You've scored <strong id='scorePer'></strong>. Your solution has been submitted successfully!</p>
+                        <hr>
+                        <span id='starArea' style='align-content: center;'>
+                            
+                        </span>
+                    </div>
+                        <div class='modal-footer'>
+                            <a class="btn btn-success" href='javascript:void(0);' onclick="document.location.reload();">Proceed</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="modal fade in" id="inputModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <label>Compile & Run &nbsp;</label>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="inp">STDIN Input</label>
+                            <input type="text" class="form-control" id="stdin" placeholder="e.g., ABCD1234">
+                            <small class="form-text text-muted">Leave blank if program doesn't require input.</small>
+                        </div>
+                        <span id="resp">
+                            Output:
+                            <pre id="resp-out">output goes here...</pre>
+                            Time
+                            <pre id="resp-time">time taken by program...</pre>
+                            Memory
+                            <pre id="resp-mem">memory taken by program...</pre>
+                        </span>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="clear" class="btn btn-sm btn-primary">Clear</button>
+                        <button id="run" class="btn btn-sm btn-primary">Run</button>
+                        <button id="submit" class="btn btn-sm btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade in" id="wait" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" style="background-color: #4aca85; color: white;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <strong>Working on it...&nbsp;</strong><i class="fa fa-cog fa-spin fa-2x" aria-hidden="true" style="float:right;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <script>
+            var plagCheck = false;
+            $('#compile').on('click',function()
+            {
+                $('#inputModal').modal("show");
+            });
+            $("#run").on("click", function()
+            {
+                $("#wait").modal("toggle");
+                isOriginal(editor.getValue()).then(function(response){
+                    console.log(response);
+                    if(response==="original")
+                    {
+                        getOutput(editor.getValue(), $('#language').val(), $("#stdin").val()).then(function(outputPayload){
+                            $("#resp-out").html(outputPayload.output);
+                            $("#resp-time").html(outputPayload.cpuTime);
+                            $("#resp-mem").html(outputPayload.memory);
+                            $("#wait").modal("toggle");
+                        });
+                    }
+                    else
+                    {
+                        plagCheck = response;
+                        alert("Your code failed on plagiarism check, proceed as usual if you think you're seeing this by mistake.");
+                        $("#wait").modal("toggle");
+                    }
+                })
+            });
+            $("#submit").on("click", function(){
+                $("#wait").modal("toggle");
+                isOriginal(editor.getValue()).then(function(){
+                    evaluateTestCases(editor.getValue(), $('#language').val()).then(function(result){
+                        resolveLocation().then(function(locationDump)
+                        {
+                            sendReport($('#user').html(), new Date(), $('#ques-code').html(), result, plagCheck, locationDump.coords.latitude+"|"+locationDump.coords.longitude).then(function(e)
+                            {
+                                showResult(result);
+                            });
+                        });
+                    });
+                });
+            });
+            var editor, firebase,dataJ;
+            const compiler_url = "https://api.jdoodle.com/v1/execute/";
+            const proxy = "https://cors-anywhere.herokuapp.com/";
+            const plag_url = "https://www.prepostseo.com/apis/checkPlag";
+            const record = "https://script.google.com/macros/s/AKfycbxgg_1E8430Wg8rgnyZsHwdNn5fLZE6iAlWWtgnwqPYQYOA0F4q/exec?";
+            var hiddenData = {};
+            function isOriginal(source)
+            {
+                return new Promise(function(resolve){
+                    $.ajax({
+                    url: plag_url,
+                    method: "POST",
+                    data:{key:"fb1396e09b29fd2c9fb5ac8366a3cb37",data:source},
+                    success: function(e)
+                    {
+                        e = JSON.parse(e);
+                        if(e.plagPercent>=70) {
+                            plagCheck = e.sources[0].link;
+                            resolve("fake");
+                        } else {
+                            resolve("original");
+                        }
+                    },
+                    error: function(er)
+                    {
+                        console.error("Having trouble while performing plagiarism check!",er);
+                    }
+                });
+                });
+            }
+            function getOutput(source, lang, input)
+            {
+                return new Promise(function(resolve){
+                    dataJ = 
+                    {
+                        "clientId": "86e3b4da0ce141c7c043d1dbb1e3b059",
+                        "clientSecret": "2c718e1f6c339974129027738defa9300565576ca36bd863d772ef55f2565c93",
+                        "language": lang,
+                        "script": source,
+                        "versionIndex": "0",
+                        "stdin":input
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: proxy+compiler_url,
+                        data: JSON.stringify(dataJ),
+                        headers:{"Content-Type":"application/json"},
+                        success: function(exec) {
+                            resolve(exec);
+                        },
+                        error: function(err) {
+                            console.error("Something is wrong!", err);
+                        }
+                    });
+                });
+            }
+            async function evaluateTestCases(source, lang) {
+                let points = 0;
+                for (let i = 0; i < hiddenData.testCases.length; i++) {
+                    const response = await getOutput(source, lang, hiddenData.testCases[i].input);
+                    if (hiddenData.testCases[i].output.toString().trim() === response.output.toString().trim()) {
+                        points+=1;
+                    }
+                }
+                return points;
+            }
+            function showResult(points)
+            {
+                let score = Math.round(parseInt(points)/parseInt(hiddenData.testCases.length)*100);
+                let starCount = 0;
+                $('#starArea').html("");
+                if(score>0 && score<=20)
+                {
+                    starCount = 1;
+                }
+                if(score>21 && score<=40)
+                {
+                    starCount = 2;
+                }
+                if(score>41 && score<=60)
+                {
+                    starCount = 3;
+                }
+                if(score>61 && score<=80)
+                {
+                    starCount = 4;
+                }
+                if(score>81 && score<=100)
+                {
+                    starCount = 5;
+                }
+                for(var i=0;i<starCount;i++)
+                {
+                    $('#starArea').append('<i class="fa fa-star" aria-hidden="true"></i>');
+                }
+                $('#scorePer').html(score+"%");
+                $("#wait").modal("toggle");
+                $('#inputModal').modal("toggle");
+                $('#report').modal("toggle");
+            }
+            function resolveLocation()
+            {
+                return new Promise(function(resolve)
+                {
+                    navigator.geolocation.getCurrentPosition(function(e)
+                    {
+                        resolve(e);
+                    }, function()
+                    {
+                        alert("Your browser doesn't support Geolocation!");
+                        resolve("");
+                    }, 
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
+                    });
+                });
+            }
+            function sendReport(email, datetime, code, points, check, location)
+            {
+                return new Promise(function(resolve){
+                    $.ajax({
+                        url: proxy+record+"email="+email+"&datetime="+datetime+"&code="+code+"&points="+points+"&check="+check+"&location="+location,
+                        method: "GET",
+                        success: function(e)
+                        {
+                            resolve(e);
+                        },
+                        error: function(er)
+                        {
+                            console.error("Error while sending report",er);
+                        }
+                    });
+                });
+            }
+            $(document).ready(function()
+            {
+                initFirebase();
+            });
+            function loadQuestion(code)
+            {
+                firebase.firestore().collection("questions").doc(code).get().then(function(doc)
+                {
+                    $("#ques-marks").html(doc.data().marks+" Marks");
+                    $("#ques-code").html(doc.data().code);
+                    $("#ques-desc").html(doc.data().description);
+                    $("#ques-inp").html(doc.data().input);
+                    $("#ques-out").html(doc.data().output);
+                    hiddenData.input = 5;
+                    hiddenData.testCases = doc.data().testcases;
+                });
+            }
+            function initFirebase()
+            {
+                $.getJSON("firebase_config.json",function(conf)
+                {
+                    firebase.initializeApp(conf);
+                    sleep(2000).then(function()
+                    {
+                        setEnv();
+                        loadQuestion(sessionStorage.getItem("code"));
+                    });
+                    
+                });
+            }
+            const sleep = (milliseconds) => {
+                return new Promise(resolve => setTimeout(resolve, milliseconds))
+            }
+            function setEnv()
+            {
+                editor = ace.edit("editor");
+                editor.setTheme("ace/theme/monokai");
+                editor.session.setMode("ace/mode/java"); 
+                $('#user').html(firebase.auth().currentUser.email);
+            }
+            function changeMode()
+            {
+                let lang = $('#language').val();
+                if(lang==="python2" || lang==="python3")
+                {
+                    editor.session.setMode("ace/mode/python");
+                }
+                else if(lang==="c" || lang==="cpp" || lang==="cpp14" || lang==="c99")
+                {
+                    editor.session.setMode("ace/mode/c_cpp");
+                }
+                else
+                {
+                    editor.session.setMode("ace/mode/"+lang);
+                }
+            }
+        </script>
+    </body>
+</html>
