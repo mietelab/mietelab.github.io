@@ -1,0 +1,323 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>MIET E-Lab Portal</title>
+	<link rel="icon" href="logo.gif" type="image/png">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400" rel="stylesheet">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="dist/semantic.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase.js"></script>
+	<script src="//www.google.com/recaptcha/api.js" async defer></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.stellar.min.js"></script>
+	<script src="js/jquery.mb.YTPlayer.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<script src="js/jquery.countTo.js"></script>
+	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="dist/semantic.js"></script>
+    <style>
+		.progresstimeline{
+			max-height: 50rem;
+			min-height: 50rem;
+		}
+		#chartContainer{
+			max-width: 90%;
+			min-width: 90%;
+			max-height: 30rem;
+			min-height: 30rem;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.container{
+			text-align: center;
+		}
+	</style>    
+	</head>
+	<body>
+	<div class="colorlib-loader"></div>
+	<div id="page">
+		<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2">
+							<div id="colorlib-logo"><a href="index.html"><img src="logo.gif" style="width:4em; height:3em;" alt="MIET Meerut Logo"></a></div>
+						</div>
+						<div class="col-md-10 text-right menu-1">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="labs.html">Browse Questions</a></li>
+								<li class="active"><a href="login.html">Login / Sign Up</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="http://www.miet.ac.in/">College</a></li>
+								<li><a href="contact.html">Contact</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<section id="home" class="video-hero" style="height: 500px; background-image: url(https://content2.jdmagicbox.com/comp/lucknow/t6/pwfl1519714616n7h3t6/catalogue/miet-meerut-institute-of-engineering-and-technology-lucknow-mw3ij.jpg?interpolation=lanczos-none&output-format=jpg&resize=1024:370&crop=1024:370px;*,*);  background-size:cover; background-position: center center;background-attachment:fixed;" data-section="home">
+		<div class="overlay"></div>
+			<div class="display-t display-t2 text-center">
+				<div class="display-tc display-tc2">
+					<div class="container">
+						<div class="col-md-12 col-md-offset-0">
+							<div class="animate-box">
+								<h2>Student Dashboard</h2>
+								<p class="breadcrumbs"><span>Logged in as &nbsp;<span id="email">None</span></span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<br>
+		<section class="container">
+			<h1><strong>Your Activities</strong></h1>
+			<br>
+			<div class="ui container">
+				<table class="ui celled table">
+					<thead>
+						<tr>
+							<th>TimeStamp</th>
+							<th>Question Code</th>
+							<th>Points</th>
+							<th>Plagiarism Check</th>
+						</tr>
+					</thead>
+					<tbody id="activities">
+					</tbody>
+				</table>
+			</div>
+		</section>
+		<br>
+		<br>
+		<section class="container">
+			<h1><strong>Your Progress</strong></h1>
+			<button class="btn btn-sm btn-primary invisible" id="backButton">< Back</button>
+			<br>
+			<div id="chartContainer"></div>
+			<br>
+		</section>
+		<br>
+		<br>
+		<footer id="colorlib-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<p>
+								Copyright &copy; EDGE
+								<script> document.write(new Date().getFullYear());</script> All rights reserved<br>
+							<p style="font-size: 0.5em;">This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<br>
+				<br>
+		</footer>
+	</div>
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
+	</div>
+	<script>
+		var fixPointsData = [], errPointsData =[], total_fix, total_err;
+		
+		$(document).ready(function()
+		{
+			initFirebase().then(function(email){
+				$('#email').html(email);
+				getInfo(email).then(function(response)
+				{
+					initGraph(response).then(function()
+					{
+						visualizeProgress();
+					});
+				});
+			});
+		});
+		function initFirebase()
+        {
+            return new Promise(function(resolve)
+            {
+                $.getJSON("firebase_config.json",function(conf)
+                {
+                    firebase.initializeApp(conf);
+                    sleep(2000).then(function()
+                    {
+                        resolve(firebase.auth().currentUser.email);
+                    });
+                });
+            }); 
+		}
+		function getInfo(email)
+		{
+			return new Promise(function(resolve)
+			{
+				$.ajax({
+					url: "https://script.google.com/macros/s/AKfycbxgg_1E8430Wg8rgnyZsHwdNn5fLZE6iAlWWtgnwqPYQYOA0F4q/exec?purpose=get&email="+email,
+					method:"GET",
+					success: function(e)
+					{
+						let fixProg = [];
+						let errProg = [];
+						e = JSON.parse(e);
+						e.activities.forEach(function(item){
+							item = JSON.parse(item);
+							let obj = {};
+							obj.x = item.datetime;
+							obj.y = item.points;
+							if(item.plagCheck.toString().trim()=="false")
+							{
+								fixProg.push(obj);
+							}
+							else
+							{
+								errProg.push(obj);
+							}
+							$("#activities").append(
+								`<tr>
+									<td>`+new Date(item.datetime).toLocaleString()+`</td>
+									<td>`+item.code+`</td>
+									<td>`+item.points+`</td>
+									<td>`+item.plagCheck+`</td>
+								</tr>`
+							);
+						});
+						resolve({"total_error":e.errorenous,"total_fix":e.fixed,"fix_points":fixProg, "error_points":errProg});
+					},
+					error: function(err)
+					{
+						console.log(err);
+					}
+				});
+			});
+		}
+
+		const sleep = (milliseconds) => {
+            return new Promise(resolve => setTimeout(resolve, milliseconds))
+		}
+
+		function initGraph(payload){
+			return new Promise(function(resolve)
+			{
+				total_fix = payload.total_fix;
+				total_err = payload.total_error;
+				payload.fix_points.forEach(async function(item)
+				{
+					await fixPointsData.push(item);
+				});
+				payload.error_points.forEach(async function(item)
+				{
+					await errPointsData.push(item);
+				});
+				resolve();
+			});
+		}
+
+		function visualizeProgress() {
+			var pointsData = {
+				"Points": [{
+					click: drillDownHandler,
+					cursor: "pointer",
+					explodeOnClick: false,
+					legendMarkerType: "square",
+					name: "Points",
+					showInLegend: true,
+					type: "pie",
+					dataPoints: [
+						{ y: total_fix, name: "Fixed Points", color: "#E7823A" },
+						{ y: total_err, name: "Errorneous Points", color: "#546BC1" }
+					]
+				}],
+				"Fixed Points": [{
+					color: "#E7823A",
+					name: "Fixed Points",
+					type: "splineArea",
+					xValueType: "dateTime",
+					xValueFormatString: "DD MMM hh:mm TT",
+					dataPoints: fixPointsData
+				}],
+				"Errorneous Points": [{
+					color: "#546BC1",
+					name: "Errorneous Points",
+					type: "splineArea",
+					xValueType: "dateTime",
+					xValueFormatString: "DD MMM hh:mm TT",
+					dataPoints: errPointsData
+				}]
+			};
+			var pointsChartOptions = {
+				animationEnabled: true,
+				theme: "light2",
+				legend: {
+					fontFamily: "calibri",
+					fontSize: 14,
+					itemTextFormatter: function (e) {
+						return e.dataPoint.name + ": " + e.dataPoint.y;  
+					}
+				},
+				data: []
+			};
+			
+			var drillDownChartOptions = {
+				animationEnabled: true,
+				theme: "light2",
+				axisX: {
+					labelFontColor: "#717171",
+					lineColor: "#a2a2a2",
+					tickColor: "#a2a2a2"
+				},
+				axisY: {
+					gridThickness: 0,
+					includeZero: false,
+					labelFontColor: "#717171",
+					lineColor: "#a2a2a2",
+					tickColor: "#a2a2a2",
+					lineThickness: 1
+				},
+				data: []
+			};
+			var chart = new CanvasJS.Chart("chartContainer", pointsChartOptions);
+			chart.options.data = pointsData["Points"];
+			chart.render();
+
+			function drillDownHandler(e) {
+				chart = new CanvasJS.Chart("chartContainer", drillDownChartOptions);
+				chart.options.data = pointsData[e.dataPoint.name];
+				chart.options.title = { text: e.dataPoint.name }
+				chart.render();
+				$("#backButton").toggleClass("invisible");
+			}
+
+			$("#backButton").click(function() { 
+				$(this).toggleClass("invisible");
+				chart = new CanvasJS.Chart("chartContainer", pointsChartOptions);
+				chart.options.data = pointsData["Points"];
+				chart.render();
+			});
+		}
+	</script>
+</body>
+</html>
