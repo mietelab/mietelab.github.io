@@ -270,7 +270,7 @@
                     evaluateTestCases(editor.getValue(), $('#language').val()).then(function(result){
                         resolveLocation().then(function(locationDump)
                         {
-                            sendReport($('#user').html(), new Date(), $('#ques-code').html(), result, plagCheck, locationDump.coords.latitude+"|"+locationDump.coords.longitude).then(function(e)
+                            sendReport($('#user').html(), new Date().getTime(), $('#ques-code').html(), result, plagCheck, locationDump.coords.latitude+"|"+locationDump.coords.longitude).then(function(e)
                             {
                                 showResult(result);
                             });
