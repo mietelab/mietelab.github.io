@@ -416,7 +416,11 @@
             }
             $(document).ready(function()
             {
-                initFirebase();
+                initFirebase().then(function(email)
+                {
+                    setEnv(email);
+                    loadQuestion(sessionStorage.getItem("code"));
+                });
             });
             function loadQuestion(code)
             {
@@ -433,26 +437,27 @@
             }
             function initFirebase()
             {
-                $.getJSON("firebase_config.json",function(conf)
+                return new Promise(function(resolve)
                 {
-                    firebase.initializeApp(conf);
-                    sleep(2000).then(function()
+                    $.getJSON("firebase_config.json",function(conf)
                     {
-                        setEnv();
-                        loadQuestion(sessionStorage.getItem("code"));
+                        firebase.initializeApp(conf);
+                        sleep(1000).then(function()
+                        {
+                            resolve(firebase.auth().currentUser.email);
+                        });
                     });
-                    
-                });
+                }); 
             }
             const sleep = (milliseconds) => {
                 return new Promise(resolve => setTimeout(resolve, milliseconds))
             }
-            function setEnv()
+            function setEnv(email)
             {
                 editor = ace.edit("editor");
                 editor.setTheme("ace/theme/monokai");
                 editor.session.setMode("ace/mode/java"); 
-                $('#user').html(firebase.auth().currentUser.email);
+                $('#user').html(email);
             }
             function changeMode()
             {
