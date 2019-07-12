@@ -372,10 +372,10 @@
             {
                 return new Promise(function(resolve)
                 {
-                    $.ajax('http://ip-api.com/json')
+                    $.ajax('https://api.ipgeolocation.io/ipgeo?apiKey=94769e51a72c4ad3a811c374774e8331')
                     .then(
                         function success(response) {
-                            resolve(response.city);
+                            resolve(response.district+", "+response.city);
                         },
                         function fail(data, status) {
                             console.log('Location Unresolved');
