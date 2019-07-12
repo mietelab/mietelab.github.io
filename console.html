@@ -246,31 +246,21 @@
             {
                 $("#wait").modal("toggle");
                 isOriginal(editor.getValue()).then(function(response){
-                    console.log(response);
-                    if(response==="original")
-                    {
-                        getOutput(editor.getValue(), $('#language').val(), $("#stdin").val()).then(function(outputPayload){
+                    getOutput(editor.getValue(), $('#language').val(), $("#stdin").val()).then(function(outputPayload){
                             $("#resp-out").html(outputPayload.output);
                             $("#resp-time").html(outputPayload.cpuTime);
                             $("#resp-mem").html(outputPayload.memory);
                             $("#wait").modal("toggle");
                         });
-                    }
-                    else
-                    {
-                        plagCheck = response;
-                        alert("Your code failed on plagiarism check, proceed as usual if you think you're seeing this by mistake.");
-                        $("#wait").modal("toggle");
-                    }
-                })
+                    });
             });
             $("#submit").on("click", function(){
                 $("#wait").modal("toggle");
                 isOriginal(editor.getValue()).then(function(){
                     evaluateTestCases(editor.getValue(), $('#language').val()).then(function(result){
-                        resolveLocation().then(function(locationDump)
+                        resolveLocation().then(function(location)
                         {
-                            sendReport($('#user').html(), new Date().getTime(), $('#ques-code').html(), result, plagCheck, locationDump.coords.latitude+"|"+locationDump.coords.longitude).then(function(e)
+                            sendReport($('#user').html(), new Date().getTime(), $('#ques-code').html(), result, plagCheck, location).then(function(e)
                             {
                                 showResult(result);
                             });
@@ -382,29 +372,26 @@
             {
                 return new Promise(function(resolve)
                 {
-                    navigator.geolocation.getCurrentPosition(function(e)
-                    {
-                        resolve(e);
-                    }, function()
-                    {
-                        alert("Your browser doesn't support Geolocation!");
-                        resolve("");
-                    }, 
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 5000,
-                        maximumAge: 0
-                    });
+                    $.ajax('http://ip-api.com/json')
+                    .then(
+                        function success(response) {
+                            resolve(response.city);
+                        },
+                        function fail(data, status) {
+                            console.log('Location Unresolved');
+                        }
+                    );
                 });
             }
             function sendReport(email, datetime, code, points, check, location)
             {
                 return new Promise(function(resolve){
                     $.ajax({
-                        url: proxy+record+"email="+email+"&datetime="+datetime+"&code="+code+"&points="+points+"&check="+check+"&location="+location,
+                        url: proxy+record+"email="+email+"&datetime="+datetime+"&code="+code+"&points="+points+"&check="+check+"&location="+location+"&purpose=post",
                         method: "GET",
                         success: function(e)
                         {
+                            console.log(e);
                             resolve(e);
                         },
                         error: function(er)
